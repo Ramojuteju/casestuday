@@ -8,11 +8,29 @@
 		"ls_httpsink_accountKey": {
 			"value": ""
 		},
+		"ls_sinksql_accountKey": {
+			"value": ""
+		},
+		"ls_azurekey_properties_typeProperties_baseUrl": {
+			"value": "https://casekeyvault23.vault.azure.net/"
+		},
 		"ls_http_properties_typeProperties_url": {
 			"value": "https://fakestoreapi.com/products"
 		},
 		"ls_httpsink_properties_typeProperties_url": {
 			"value": "https://casestrge23.dfs.core.windows.net/"
+		},
+		"ls_sinksql_properties_typeProperties_url": {
+			"value": "https://casestrge23.dfs.core.windows.net/"
+		},
+		"ls_sqldb_properties_typeProperties_server": {
+			"value": "caseserver23.database.windows.net"
+		},
+		"ls_sqldb_properties_typeProperties_database": {
+			"value": "casedatabase"
+		},
+		"ls_sqldb_properties_typeProperties_userName": {
+			"value": "sqlserveradmin"
 		}
 	}
 }

@@ -11,6 +11,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_httpsink'"
 		},
+		"ls_sinksql_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_sinksql'"
+		},
+		"ls_azurekey_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://casekeyvault23.vault.azure.net/"
+		},
 		"ls_http_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://fakestoreapi.com/products"
@@ -18,6 +26,22 @@
 		"ls_httpsink_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://casestrge23.dfs.core.windows.net/"
+		},
+		"ls_sinksql_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://casestrge23.dfs.core.windows.net/"
+		},
+		"ls_sqldb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "caseserver23.database.windows.net"
+		},
+		"ls_sqldb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "casedatabase"
+		},
+		"ls_sqldb_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqlserveradmin"
 		},
 		"containerUri": {
 			"type": "string",
@@ -49,11 +73,29 @@
 					"ls_httpsink_accountKey": {
 						"value": "[parameters('ls_httpsink_accountKey')]"
 					},
+					"ls_sinksql_accountKey": {
+						"value": "[parameters('ls_sinksql_accountKey')]"
+					},
+					"ls_azurekey_properties_typeProperties_baseUrl": {
+						"value": "[parameters('ls_azurekey_properties_typeProperties_baseUrl')]"
+					},
 					"ls_http_properties_typeProperties_url": {
 						"value": "[parameters('ls_http_properties_typeProperties_url')]"
 					},
 					"ls_httpsink_properties_typeProperties_url": {
 						"value": "[parameters('ls_httpsink_properties_typeProperties_url')]"
+					},
+					"ls_sinksql_properties_typeProperties_url": {
+						"value": "[parameters('ls_sinksql_properties_typeProperties_url')]"
+					},
+					"ls_sqldb_properties_typeProperties_server": {
+						"value": "[parameters('ls_sqldb_properties_typeProperties_server')]"
+					},
+					"ls_sqldb_properties_typeProperties_database": {
+						"value": "[parameters('ls_sqldb_properties_typeProperties_database')]"
+					},
+					"ls_sqldb_properties_typeProperties_userName": {
+						"value": "[parameters('ls_sqldb_properties_typeProperties_userName')]"
 					}
 				}
 			},

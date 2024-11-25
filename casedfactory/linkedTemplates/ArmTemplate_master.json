@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "casedfactory"
 		},
+		"curatedhttp_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'curatedhttp'"
+		},
+		"ls_curatedsink_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_curatedsink'"
+		},
 		"ls_httpsink_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_httpsink'"
@@ -15,9 +23,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_sinksql'"
 		},
+		"curatedhttp_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://casestrge23.dfs.core.windows.net/"
+		},
 		"ls_azurekey_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://casekeyvault23.vault.azure.net/"
+		},
+		"ls_curatedsink_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://casestrge23.dfs.core.windows.net/"
 		},
 		"ls_http_properties_typeProperties_url": {
 			"type": "string",
@@ -70,14 +86,26 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"curatedhttp_accountKey": {
+						"value": "[parameters('curatedhttp_accountKey')]"
+					},
+					"ls_curatedsink_accountKey": {
+						"value": "[parameters('ls_curatedsink_accountKey')]"
+					},
 					"ls_httpsink_accountKey": {
 						"value": "[parameters('ls_httpsink_accountKey')]"
 					},
 					"ls_sinksql_accountKey": {
 						"value": "[parameters('ls_sinksql_accountKey')]"
 					},
+					"curatedhttp_properties_typeProperties_url": {
+						"value": "[parameters('curatedhttp_properties_typeProperties_url')]"
+					},
 					"ls_azurekey_properties_typeProperties_baseUrl": {
 						"value": "[parameters('ls_azurekey_properties_typeProperties_baseUrl')]"
+					},
+					"ls_curatedsink_properties_typeProperties_url": {
+						"value": "[parameters('ls_curatedsink_properties_typeProperties_url')]"
 					},
 					"ls_http_properties_typeProperties_url": {
 						"value": "[parameters('ls_http_properties_typeProperties_url')]"

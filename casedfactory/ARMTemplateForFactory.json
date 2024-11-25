@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "casedfactory"
 		},
+		"curatedhttp_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'curatedhttp'"
+		},
+		"ls_curatedsink_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_curatedsink'"
+		},
 		"ls_httpsink_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_httpsink'"
@@ -15,9 +23,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_sinksql'"
 		},
+		"curatedhttp_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://casestrge23.dfs.core.windows.net/"
+		},
 		"ls_azurekey_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://casekeyvault23.vault.azure.net/"
+		},
+		"ls_curatedsink_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://casestrge23.dfs.core.windows.net/"
 		},
 		"ls_http_properties_typeProperties_url": {
 			"type": "string",
@@ -55,7 +71,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "sqldb",
+						"name": "curated",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -68,41 +84,38 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "AzureSqlSource",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.json",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
 							},
 							"sink": {
-								"type": "DelimitedTextSink",
+								"type": "JsonSink",
 								"storeSettings": {
 									"type": "AzureBlobFSWriteSettings"
 								},
 								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
+									"type": "JsonWriteSettings"
 								}
 							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
+							"enableStaging": false
 						},
 						"inputs": [
 							{
-								"referenceName": "sqldb",
+								"referenceName": "curated",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "sqlsink",
+								"referenceName": "curatedsink",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -115,8 +128,54 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/sqldb')]",
-				"[concat(variables('factoryId'), '/datasets/sqlsink')]"
+				"[concat(variables('factoryId'), '/datasets/curated')]",
+				"[concat(variables('factoryId'), '/datasets/curatedsink')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/curated')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "curatedhttp",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "raw"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/curatedhttp')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/curatedsink')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_curatedsink",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "curated"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_curatedsink')]"
 			]
 		},
 		{
@@ -299,6 +358,23 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/curatedhttp')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('curatedhttp_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('curatedhttp_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ls_azurekey')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -307,6 +383,23 @@
 				"type": "AzureKeyVault",
 				"typeProperties": {
 					"baseUrl": "[parameters('ls_azurekey_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_curatedsink')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_curatedsink_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ls_curatedsink_accountKey')]"
+					}
 				}
 			},
 			"dependsOn": []

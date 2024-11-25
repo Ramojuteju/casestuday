@@ -5,14 +5,26 @@
 		"factoryName": {
 			"value": "casedfactory"
 		},
+		"curatedhttp_accountKey": {
+			"value": ""
+		},
+		"ls_curatedsink_accountKey": {
+			"value": ""
+		},
 		"ls_httpsink_accountKey": {
 			"value": ""
 		},
 		"ls_sinksql_accountKey": {
 			"value": ""
 		},
+		"curatedhttp_properties_typeProperties_url": {
+			"value": "https://casestrge23.dfs.core.windows.net/"
+		},
 		"ls_azurekey_properties_typeProperties_baseUrl": {
 			"value": "https://casekeyvault23.vault.azure.net/"
+		},
+		"ls_curatedsink_properties_typeProperties_url": {
+			"value": "https://casestrge23.dfs.core.windows.net/"
 		},
 		"ls_http_properties_typeProperties_url": {
 			"value": "https://fakestoreapi.com/products"

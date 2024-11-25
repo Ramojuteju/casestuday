@@ -1,0 +1,23 @@
+{
+	"name": "ls_sqldb",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "caseserver23.database.windows.net",
+			"database": "casedatabase",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "sqlserveradmin",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_azurekey",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "secretkey"
+			}
+		}
+	}
+}

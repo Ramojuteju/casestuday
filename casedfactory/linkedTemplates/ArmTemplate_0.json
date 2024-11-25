@@ -244,6 +244,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "1b55c3a7-2b47-4b7d-8df7-0a629b942853",
 						"fileSystem": "raw"
 					}
 				},
@@ -507,7 +508,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "curatedsql",
+						"name": "Copy data1",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -520,47 +521,37 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "DelimitedTextSource",
+								"type": "JsonSource",
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
 									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
+									"type": "JsonReadSettings"
 								}
 							},
 							"sink": {
-								"type": "DelimitedTextSink",
+								"type": "JsonSink",
 								"storeSettings": {
 									"type": "AzureBlobFSWriteSettings"
 								},
 								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
+									"type": "JsonWriteSettings"
 								}
 							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
+							"enableStaging": false
 						},
 						"inputs": [
 							{
-								"referenceName": "curatedsql",
+								"referenceName": "curated",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "curatedsinksql",
+								"referenceName": "curatedsink",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -573,8 +564,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/curatedsql')]",
-				"[concat(variables('factoryId'), '/datasets/curatedsinksql')]"
+				"[concat(variables('factoryId'), '/datasets/curated')]",
+				"[concat(variables('factoryId'), '/datasets/curatedsink')]"
 			]
 		},
 		{

@@ -11,6 +11,12 @@
 		"ls_curatedsink_accountKey": {
 			"value": ""
 		},
+		"ls_curatedsql_accountKey": {
+			"value": ""
+		},
+		"ls_curatedsqlsink_accountKey": {
+			"value": ""
+		},
 		"ls_httpsink_accountKey": {
 			"value": ""
 		},
@@ -24,6 +30,12 @@
 			"value": "https://casekeyvault23.vault.azure.net/"
 		},
 		"ls_curatedsink_properties_typeProperties_url": {
+			"value": "https://casestrge23.dfs.core.windows.net/"
+		},
+		"ls_curatedsql_properties_typeProperties_url": {
+			"value": "https://casestrge23.dfs.core.windows.net/"
+		},
+		"ls_curatedsqlsink_properties_typeProperties_url": {
 			"value": "https://casestrge23.dfs.core.windows.net/"
 		},
 		"ls_http_properties_typeProperties_url": {

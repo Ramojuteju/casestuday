@@ -1,0 +1,9 @@
+{
+	"name": "casedfactory",
+	"location": "canadacentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7c3c7a19-a6f8-4d43-8870-c72254fff61f",
+		"tenantId": "32e6e18b-76be-433f-82ae-805603a70e49"
+	}
+}
